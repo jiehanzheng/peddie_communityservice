@@ -1,6 +1,4 @@
 class SignupsController < ApplicationController
-  set_tab :signups
-
   # GET /signups
   # GET /signups.json
   def index

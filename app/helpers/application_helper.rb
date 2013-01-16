@@ -1,23 +1,4 @@
 module ApplicationHelper
-
-  class BootstrapNavTabBuilder < TabsOnRails::Tabs::Builder
-    def open_tabs(options = {})
-      @context.tag("ul", { :class => "nav" }, open = true)
-    end
-
-    def close_tabs(options = {})
-      "</ul>".html_safe
-    end
-
-    def tab_for(tab, name, options, item_options = {})
-      item_options[:class] = (current_tab?(tab) ? 'active' : '')
-      @context.content_tag(:li, item_options) do
-        @context.link_to(name, options)
-      end
-    end
-  end
-
-
   def quota_badge(quota_remaining)
     t = Settings.appearance.badges.quota_remaining_thresholds
     inf = 1.0/0
@@ -44,5 +25,4 @@ module ApplicationHelper
 
     "<span class=\"badge badge-#{class_suffix}\">#{spots_count}</span>".html_safe
   end
-  
 end

@@ -2,11 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
-
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,25 +15,25 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
+group :development do  
+  gem 'sqlite3'
+
+  # Deploy with Capistrano
+  gem 'capistrano'
+  gem "rvm-capistrano"
+end
+
+
+group :production do
+  gem 'mysql2'
+end
+
+
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
 # Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
-# Automatically highlights current tab on the nav bar
-gem "tabs_on_rails"
+gem 'unicorn'
 
 # Twitter Bootstrap and its required LESS gem
 gem "less-rails"

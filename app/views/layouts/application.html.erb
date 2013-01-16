@@ -32,15 +32,6 @@
           <a class="brand" href="/">Community Day Signups</a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <!--
-              <%= tabs_tag(:builder => ApplicationHelper::BootstrapNavTabBuilder) do |tab| %>
-                <li class="divider-vertical"></li>
-                <%= tab.committees 'Committees', committees_path %>
-                <%= tab.shifts     'Shifts', shifts_path %>
-                <%= tab.signups    'Signups', signups_path %>
-                <%= tab.signups    'My Signups', signups_path %>
-              <% end %>
-              -->
               <% if signed_in? %>
                 <li>
                   <% if current_user_signup_quota_remaining != 0 %>

@@ -1,6 +1,4 @@
 class ShiftsController < ApplicationController
-  set_tab :shifts
-
   # GET /shifts
   # GET /shifts.json
   def index

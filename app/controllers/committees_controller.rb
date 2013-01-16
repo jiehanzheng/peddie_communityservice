@@ -1,6 +1,4 @@
 class CommitteesController < ApplicationController
-  set_tab :committees
-
   # GET /committees
   # GET /committees.json
   def index
