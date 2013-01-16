@@ -1,0 +1,109 @@
+class ApplicationController < ActionController::Base
+  protect_from_forgery
+
+  def overall_user_signup_permission
+    if not current_user.eligible_today?
+      raise "you are not signed in, or are not allowed in current phase"
+    end
+
+    if not current_user_signup_quota_remaining > 0
+      raise "you exceeded the maximum shifts limit"
+    end
+
+    true
+  end
+
+  def overall_user_signup_permission_human
+    begin
+      overall_user_signup_permission
+    rescue => e
+      return e.message
+    end
+
+    return "true"
+  end
+  helper_method :overall_user_signup_permission_human
+
+  def overall_user_cancel_permission_human
+    begin
+      if not current_user.eligible_today?
+        raise "you are not signed in, or are not allowed in current phase"
+      end
+    rescue => e
+      return e.message
+    end
+
+    return "true"
+  end
+  helper_method :overall_user_cancel_permission_human
+
+  def sessions_destroy(notice=nil)
+    session[:user_id] = nil
+
+    notice ||= "Signed out.  Thanks for using Jiehan&rsquo;s signup system!".html_safe
+    redirect_to root_path, :notice => notice
+  end
+
+  def signup_restriction_human
+    phases = Hash.try_convert(Settings.phases).with_indifferent_access
+
+    phases[current_phase_name][:who_can_signup]
+  end
+  helper_method :signup_restriction_human
+
+  def current_phase_name
+    Phase.name
+  end
+  helper_method :current_phase_name
+
+  def current_phase_details
+    Phase.details
+  end
+  helper_method :current_phase_details
+
+  def current_user_eligible?
+    current_user.eligible_today?
+  end
+  helper_method :current_user_eligible?
+
+  def current_user
+    begin
+      return @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue => e
+      sessions_destroy e.message
+    end
+
+    false
+  end
+  helper_method :current_user
+
+  def signed_in?
+    current_user
+  end
+  helper_method :signed_in?
+
+  def current_user_signed_up_count
+    if signed_in?
+      current_user.signup_count
+    else
+      raise "Signed up count is not available for guests."
+    end
+  end
+  helper_method :current_user_signed_up_count
+
+  def current_user_signup_quota_remaining
+    if signed_in?
+      Settings.policy.students.max_shifts - current_user_signed_up_count
+    else
+      raise "Signed up quota is not available for guests."
+    end
+  end
+  helper_method :current_user_signup_quota_remaining
+
+
+  private
+
+  def current_phase
+    Phase.current
+  end
+end

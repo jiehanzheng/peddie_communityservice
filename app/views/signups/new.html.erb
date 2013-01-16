@@ -1,0 +1,12 @@
+<ul class="breadcrumb">
+  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
+  <li><%= link_to "Committees", committees_path %> <span class="divider">/</span></li>
+  <li><%= link_to @shift.committee.name, @shift.committee %> <span class="divider">/</span></li>
+  <li>Shift #<%= @shift.position %> <span class="divider">/</span></li>
+  <li class="active">Sign up</li>
+</ul>
+
+<div class="page-header">
+  <h1>Signup confirmation</h1>
+</div>
+<%= render :partial => 'form' %>

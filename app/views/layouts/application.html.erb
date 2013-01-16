@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "CS Day Signups" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
+  </head>
+  <body data-user-can-signup="<%= overall_user_signup_permission_human %>"
+        data-user-can-cancel="<%= overall_user_cancel_permission_human %>">
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Community Day Signups</a>
+          <div class="container nav-collapse">
+            <ul class="nav">
+              <!--
+              <%= tabs_tag(:builder => ApplicationHelper::BootstrapNavTabBuilder) do |tab| %>
+                <li class="divider-vertical"></li>
+                <%= tab.committees 'Committees', committees_path %>
+                <%= tab.shifts     'Shifts', shifts_path %>
+                <%= tab.signups    'Signups', signups_path %>
+                <%= tab.signups    'My Signups', signups_path %>
+              <% end %>
+              -->
+              <% if signed_in? %>
+                <li>
+                  <% if current_user_signup_quota_remaining != 0 %>
+                    <%= link_to ("You may select up to " + quota_badge(current_user_signup_quota_remaining) + " more " + "shift".pluralize(current_user_signup_quota_remaining) + '.').html_safe, signups_path %>
+                  <% else %>
+                    <%= link_to "You are all set.  Click to <span class=\"label\">review/edit</span> your selection.".html_safe, signups_path %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+            <div class="pull-right">
+              <ul class="nav">
+                <li>
+                  <% if signed_in? %>
+                    <%= link_to '<i class="icon-user"></i>'.html_safe + "Sign out #{current_user.first_name}", "/sessions/destroy", :method => :delete %>
+                  <% else %>
+                    <%= link_to '<i class="icon-user"></i>'.html_safe + "Sign in with Peddie Email", "/auth/peddie" %>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="alert alert-block">
+            <% begin %>
+              <p>
+                <strong><%= current_phase_details[:notice] %></strong>
+                <% if current_user %>
+                  You are <strong><%= current_user_eligible? ? "eligible" : "not eligible" %></strong> to sign up today.
+                <% else %>
+                  You have to <a href="/auth/peddie"><strong>sign in</strong></a> to sign up.
+                <% end %>
+              </p>
+              <p>
+                  The system is in <em><%= current_phase_name %></em> phase.
+                  <%= signup_restriction_human %> can sign up.
+                  This phase ends at <%= current_phase_details[:end_date] %>,
+                  after which <%= current_phase_details[:after_phase] %>.
+              </p>
+            <% rescue => e %>
+              <%= e.message %>
+            <% end %>
+          </div>
+          <%= bootstrap_flash %>
+        </div>
+      </div>
+
+      <%= yield %>
+
+      <div id="footer">
+        <div class="container">
+          <p class="muted credit">
+            If you have a question on any of the committees, see <strong>Mrs. Mooney</strong>.
+          </p>
+          <p class="muted credit">
+            If you keep seeing error messages or have problem signing up, chat/email <strong>Jiehan Zheng</strong> &lt;<a href="mailto:jzheng-14@peddie.org">jzheng-14@peddie.org</a>&gt;.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+    <%= yield :scripts %>
+
+  </body>
+</html>

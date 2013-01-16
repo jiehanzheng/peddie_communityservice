@@ -1,0 +1,37 @@
+<%= form_for @committee, :html => { :class => 'form-horizontal' } do |f| %>
+  <% if @committee.errors.any? %>
+    <div id="error_explanation" class="alert alert-block alert-error">
+      <strong><%= pluralize(@committee.errors.count, "error") %> prohibited this committee from being saved:</strong>
+      <ul>
+      <% @committee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :description, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :location, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :location, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                committees_path, :class => 'btn' %>
+  </div>
+<% end %>

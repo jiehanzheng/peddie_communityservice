@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  committee_id: 1
+  start: 2013-01-12 22:45:33
+  end: 2013-01-12 22:45:33
+
+two:
+  committee_id: 1
+  start: 2013-01-12 22:45:33
+  end: 2013-01-12 22:45:33

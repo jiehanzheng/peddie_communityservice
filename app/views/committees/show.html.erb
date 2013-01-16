@@ -1,0 +1,100 @@
+<% content_for :scripts do %>
+  <%= javascript_include_tag "committees" %>
+<% end %>
+<ul class="breadcrumb">
+  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
+  <li><%= link_to "Committees", committees_path %> <span class="divider">/</span></li>
+  <li class="active"><%= @committee.name %></li>
+</ul>
+
+<div class="hero-unit">
+  <h1><%= @committee.name %></h1>
+  <p><%= @committee.location %></p>
+  <!-- <p>
+    <%= link_to "Edit", edit_committee_path, { :class => "btn btn-large" } %>
+    <%= link_to "Delete", {}, { :confirm => "Are you sure?", 
+                                :method => :delete, 
+                                :class => "btn btn-danger btn-large" } %>
+  </p> -->
+</div>
+
+<div class="row">
+  <div class="span8">
+    <div class="page-header">
+      <h2>Shifts <%#= link_to "Add New", { :controller => "shifts",
+                                          :action => "new",
+                                          :committee_id => @committee.id }, 
+                                        :class => 'btn btn-primary' %></h2>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Spots</th>
+          <th>Sign up?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shifts.each do |shift| %>
+          <tr>
+            <td><%= link_to shift.position, shift %></td>
+            <td><%= shift.start_time_human %></td>
+            <td><%= shift.end_time_human %></td>
+            <td>
+              <%= spots_badge shift.capacity - shift.signups.count %></span>
+              /
+              <%= shift.capacity %>
+            </td>
+            <td>
+              <% signup_entry = current_user.signed_up?(shift) %>
+              <% if signup_entry.blank? %>
+                <% if shift.has_spots? %>
+                  <%= link_to "Sign up", { :controller => "signups",
+                                           :action => "new",
+                                           :shift_id => shift.id },
+                                         { :class => "signup btn btn-mini btn-primary" } %>
+                <% else %>
+                  <%= link_to "Full", "javascript:void(0)",
+                                      { :class => "signup disabled btn btn-mini btn-primary" } %>
+                <% end %>
+              <% else %>
+                <%= link_to "Delete", signup_entry, 
+                                      { :confirm => "Are you sure?
+
+If you change your mind after you cancel, 
+you spot might be taken by others.", 
+                                        :method => :delete, 
+                                        :class => "cancel btn btn-mini btn-danger" } %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="4">
+              <ol>
+                <% shift.signups.each do |signup| %>
+                  <li>
+                    <%= signup.user.full_name %>
+                    <% if signup.user == current_user %>
+                      <span class="label">you</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ol>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="span4">
+    <div class="page-header">
+      <h2>Details</h2>
+    </div>
+    <h3>Description</h3>
+    <%= simple_format( @committee.description ) %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<%= form_for @signup, :html => { :class => 'form-horizontal' } do |f| %>
+  <% if @signup.errors.any? %>
+    <div id="error_explanation" class="alert alert-block alert-error">
+      <strong><%= pluralize(@signup.errors.count, "error") %> prohibited this signup from being saved:</strong>
+      <ul>
+      <% @signup.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :shift_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.hidden_field :shift_id, :value => @shift.id %>
+      <div class="well">
+        <h2><%= @shift.committee.name %></h2>
+        <%= @shift.start_time_human %> – <%= @shift.end_time_human %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "Confirm signup", :class => 'btn btn-primary' %>
+    <%= link_to "Cancel",
+                signups_path, :class => 'btn' %>
+  </div>
+<% end %>

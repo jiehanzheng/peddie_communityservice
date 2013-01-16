@@ -1,0 +1,21 @@
+<ul class="breadcrumb">
+  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
+  <li class="active">My Signups</li>
+</ul>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Committee, Shift #</th>
+      <th>Signed up at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @signups.each do |signup| %>
+      <tr>
+        <td><%= signup.shift_id %></td>
+        <td><%=l signup.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
