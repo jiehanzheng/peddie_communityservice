@@ -4,19 +4,13 @@
   <li class="active"><%= @committee.name %></li>
 </ul>
 
-<div class="hero-unit">
-  <h1><%= @committee.name %></h1>
-  <p><%= @committee.location %></p>
+<div class="page-header">
+  <h1><%= @committee.name %> <small>@ <%= @committee.location %></small></h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <div class="page-header">
-      <h2>Shifts <%#= link_to "Add New", { :controller => "shifts",
-                                          :action => "new",
-                                          :committee_id => @committee.id }, 
-                                        :class => 'btn btn-primary' %></h2>
-    </div>
+    <h2>Shifts</h2>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -92,9 +86,7 @@ you spot might be taken by others.",
   </div>
 
   <div class="span4">
-    <div class="page-header">
-      <h2>Details</h2>
-    </div>
+    <h2>Details</h2>
     <h3>Description</h3>
     <%= simple_format( @committee.description ) %>
   </div>
