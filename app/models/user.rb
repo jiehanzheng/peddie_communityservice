@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :provider, :uid, :first_name, :last_name, :school_role, :presence => true
+  # validates :provider, :uid, :first_name, :last_name, :school_role, :presence => true
 
   def self.from_omniauth(auth)
     user = where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def eligible_today?
-    if Phase.details[:graduation_years].include?(Integer(graduation_year))
+    if not graduation_year.blank? and Phase.details[:graduation_years].include?(Integer(graduation_year))
       return true
     end
 

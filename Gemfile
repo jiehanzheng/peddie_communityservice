@@ -42,6 +42,7 @@ gem "twitter-bootstrap-rails"
 
 # User authentication with Peddie Email and identity
 gem "ruby-openid-apps-discovery"
+gem 'bcrypt-ruby', '~> 3.0.0'
 gem "omniauth-identity"
 gem "omniauth-openid"
 

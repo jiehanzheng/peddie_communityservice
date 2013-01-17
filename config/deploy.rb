@@ -25,3 +25,13 @@ after "deploy", "deploy:migrate"
 
 set :keep_releases, 3
 after "deploy:restart", "deploy:cleanup"
+
+
+namespace :deploy do
+  namespace :db do
+    desc "Populates the Production Database"
+    task :seed do
+      run "cd #{current_path}; rake db:seed RAILS_ENV=production"
+    end
+  end
+end

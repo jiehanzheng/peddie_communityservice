@@ -245,14 +245,14 @@ c = Committee.create({
   Shift.create({
     :position => 1,
     :committee_id => c.id,
-    :capacity => 16,
+    :capacity => 24,
     :start_time => "13:15",
     :end_time => "15:45" })
 
 
 c = Committee.create({
   :name => "Blood Drive",
-  :description => "Students will assist with signing in donors.",
+  :description => "Students will assist with signing in donors.  Blood Drive volunteers will need to go to a training during DMX on Thursday, Jan 24.",
   :location => "Science Center Lobby" })
 
   Shift.create({
@@ -334,4 +334,44 @@ c = Committee.create({
     :committee_id => c.id,
     :capacity => 2,
     :start_time => "12:00",
+    :end_time => "16:00" })
+
+
+c = Committee.create({
+  :name => "Origami Table",
+  :description => "Students will teach guests how to do origami. There will be a training session before Community Day.",
+  :location => "Athletic Center" })
+
+  Shift.create({
+    :position => 1,
+    :committee_id => c.id,
+    :capacity => 4,
+    :start_time => "12:00",
+    :end_time => "14:00" })
+
+  Shift.create({
+    :position => 2,
+    :committee_id => c.id,
+    :capacity => 4,
+    :start_time => "14:00",
+    :end_time => "16:00" })
+
+
+c = Committee.create({
+  :name => "Family Helpers",
+  :description => "Students will act as helpers for families at the Carnival.",
+  :location => "Athletic Center" })
+
+  Shift.create({
+    :position => 1,
+    :committee_id => c.id,
+    :capacity => 4,
+    :start_time => "12:00",
+    :end_time => "14:00" })
+
+  Shift.create({
+    :position => 2,
+    :committee_id => c.id,
+    :capacity => 4,
+    :start_time => "14:00",
     :end_time => "16:00" })

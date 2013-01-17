@@ -61,7 +61,7 @@
               <p>
                 <strong><%= current_phase_details[:notice] %></strong>
                 <% if current_user %>
-                  You are <strong><%= current_user_eligible? ? "eligible" : "not eligible" %></strong> to sign up today.
+                  You are <strong><%= current_user.eligible_today? ? "eligible" : "not eligible" %></strong> to sign up today.
                 <% else %>
                   You have to <a href="/auth/peddie"><strong>sign in</strong></a> to sign up.
                 <% end %>
