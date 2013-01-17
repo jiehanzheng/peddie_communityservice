@@ -71,6 +71,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user_signup_quota_remaining
 
+  def peddie_login_path(origin)
+    if origin.blank?
+      "/auth/peddie"
+    else
+      "/auth/peddie?" + { :origin => origin }.to_query
+    end
+  end
+  helper_method :peddie_login_path
+
 
   private
 

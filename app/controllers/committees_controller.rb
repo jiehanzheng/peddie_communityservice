@@ -13,6 +13,11 @@ class CommitteesController < ApplicationController
   # GET /committees/1
   # GET /committees/1.json
   def show
+    if not current_user
+      redirect_to peddie_login_path(request.url)
+      return
+    end
+
     @committee = Committee.find(params[:id])
     @shifts = @committee.shifts
 
