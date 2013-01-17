@@ -41,9 +41,9 @@
               <ul class="nav">
                 <li>
                   <% if signed_in? %>
-                    <%= link_to '<i class="icon-user"></i>'.html_safe + "Sign out #{current_user.first_name}", "/sessions/destroy", :method => :delete %>
+                    <%= link_to '<i class="icon-user"></i> '.html_safe + "Sign out #{current_user.first_name}", "/sessions/destroy", :method => :delete %>
                   <% else %>
-                    <%= link_to '<i class="icon-user"></i>'.html_safe + "Sign in with Peddie Email", "/auth/peddie" %>
+                    <%= link_to '<i class="icon-user"></i> '.html_safe + "Sign in with Peddie Email", "/auth/peddie" %>
                   <% end %>
                 </li>
               </ul>
