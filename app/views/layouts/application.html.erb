@@ -13,13 +13,8 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-
-    <!-- For all other devices -->
-    <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
   </head>
-  <body data-user-can-signup="<%= overall_user_signup_permission_human %>"
-        data-user-can-cancel="<%= overall_user_cancel_permission_human %>">
+  <body>
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">

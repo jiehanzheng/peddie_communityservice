@@ -27,6 +27,18 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def can_signup?
+    if eligible_today? and signup_quota_remaining > 0
+      true
+    else
+      false
+    end
+  end
+
+  def can_cancel?
+    eligible_today?
+  end
+
   def signed_up?(shift)
     shift.signups.each do |signup|
       if signup.user == self

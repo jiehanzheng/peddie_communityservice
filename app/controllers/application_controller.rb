@@ -1,41 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def overall_user_signup_permission
-    if not current_user.eligible_today?
-      raise "you are not signed in, or are not allowed in current phase"
+  def current_user_can_cancel?
+    if current_user.eligible_today?
+      true
+    else
+      false
     end
-
-    if not current_user_signup_quota_remaining > 0
-      raise "you exceeded the maximum shifts limit"
-    end
-
-    true
   end
-
-  def overall_user_signup_permission_human
-    begin
-      overall_user_signup_permission
-    rescue => e
-      return e.message
-    end
-
-    return "true"
-  end
-  helper_method :overall_user_signup_permission_human
-
-  def overall_user_cancel_permission_human
-    begin
-      if not current_user.eligible_today?
-        raise "you are not signed in, or are not allowed in current phase"
-      end
-    rescue => e
-      return e.message
-    end
-
-    return "true"
-  end
-  helper_method :overall_user_cancel_permission_human
+  helper_method :user_can_cancel?
 
   def sessions_destroy(notice=nil)
     session[:user_id] = nil
@@ -45,9 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signup_restriction_human
-    phases = Hash.try_convert(Settings.phases).with_indifferent_access
-
-    phases[current_phase_name][:who_can_signup]
+    current_phase_details[:who_can_signup]
   end
   helper_method :signup_restriction_human
 
