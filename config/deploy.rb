@@ -21,6 +21,7 @@ require "rvm/capistrano"
 require "bundler/capistrano"
 
 after "deploy", "deploy:migrate"
+after 'deploy:restart', 'unicorn:restart'
 
 set :keep_releases, 3
 after "deploy:restart", "deploy:cleanup"
