@@ -19,6 +19,7 @@ set :rvm_ruby_string, '1.9.3'
 
 require "rvm/capistrano"
 require "bundler/capistrano"
+require "capistrano-unicorn"
 
 after "deploy", "deploy:migrate"
 after 'deploy:restart', 'unicorn:restart'
