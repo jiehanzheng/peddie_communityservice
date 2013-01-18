@@ -6,6 +6,7 @@ authorization do
   role :user do
     has_permission_on :committees, :to => :read
 
+    has_permission_on :signups, :to => :read
     has_permission_on :signups, :to => :create
     has_permission_on :signups, :to => :destroy do
       if_attribute :user => is { user }
