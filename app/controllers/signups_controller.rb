@@ -1,8 +1,10 @@
 class SignupsController < ApplicationController
+  filter_resource_access
+  
   # GET /signups
   # GET /signups.json
   def index
-    @signups = Signup.all
+    @signups = Signup.where(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb

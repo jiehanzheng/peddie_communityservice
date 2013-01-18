@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+junior:
+  provider: myself
+  uid: junior
+  first_name: Garret
+  last_name: Abramoff
+  school_role: student
+  graduation_year: 14
+  site_role: user
+
+senior:
+  provider: myself
+  uid: senior
+  first_name: Isreal
+  last_name: Almsteadt
+  school_role: student
+  graduation_year: 13
+  site_role: user
+
+faculty:
+  provider: myself
+  uid: faculty
+  first_name: Delinda
+  last_name: Forlani
+  school_role: faculty
+  site_role: user

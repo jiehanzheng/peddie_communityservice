@@ -73,6 +73,7 @@
                   after which <%= current_phase_details[:after_phase] %>.
               </p>
             <% rescue => e %>
+              <% raise if not Rails.env.production? %>
               <%= e.message %>
             <% end %>
           </div>

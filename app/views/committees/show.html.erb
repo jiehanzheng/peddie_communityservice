@@ -24,7 +24,7 @@
       <tbody>
         <% @shifts.each do |shift| %>
           <tr>
-            <td><%= link_to shift.position, shift %></td>
+            <td><strong><%= shift.position %></strong></td>
             <td><%= shift.start_time_human %></td>
             <td><%= shift.end_time_human %></td>
             <td>
@@ -51,7 +51,7 @@
                 <% end %>
               <% else %>
                 <% if current_user.can_cancel? %>
-                  <%= link_to "Delete", signup_entry, 
+                  <%= link_to "Cancel", signup_entry, 
                                         { :confirm => "Are you sure?
 
 If you change your mind after you cancel, 

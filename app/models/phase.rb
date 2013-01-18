@@ -7,7 +7,7 @@ class Phase
       phase_details = p[1]
 
       if phase_details[:start_date] <= Time.current and Time.current <= phase_details[:end_date]
-        return @@current_phase = p
+        return p
       end
     end
 

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  name: Meals on Wheels
+  description: Preparing meals to be delivered to seniors who are homebound
+  location: Dining Hall Kitchen
+
+two:
+  id: 2
+  name: Bag Lunches
+  description: Assembling lunch bags for our guests.
+  location: Athletic Center Lobby

@@ -16,9 +16,7 @@ group :assets do
 end
 
 
-group :development do  
-  gem 'sqlite3'
-
+group :development do
   # Deploy with Capistrano
   gem 'capistrano'
   gem "rvm-capistrano"
@@ -49,5 +47,17 @@ gem "omniauth-openid"
 # App configuration
 gem "rails_config"
 
-# Time-only selector in forms
-gem "combined_time_select", "~> 1.0.0"
+# Authorization
+gem "declarative_authorization"
+
+
+# Tests
+group :test, :development do
+  gem 'sqlite3'
+
+  gem "rspec-rails", "~> 2.0"
+  gem "capybara"
+  gem "guard-rspec"
+  gem "rb-inotify", '~> 0.8.8'
+  gem "timecop"
+end

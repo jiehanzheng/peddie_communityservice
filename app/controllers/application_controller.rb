@@ -80,6 +80,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :peddie_login_path
 
+  def permission_denied
+    flash[:error] = "Sorry, you are not allowed to access that page."
+    redirect_to root_url
+  end
+
 
   private
 

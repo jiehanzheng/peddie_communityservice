@@ -65,11 +65,23 @@ class User < ActiveRecord::Base
     Settings.policy.students.max_shifts - Signup.where(:user_id => id).count
   end
 
+  def role_symbols
+    role_symbols = Array.new
+
+    unless site_role.blank?
+      role_symbols << site_role.to_sym
+    end
+
+    unless school_role.blank?
+      role_symbols << ('school_' + school_role).to_sym
+    end
+  end
+
 
   private
 
   def self.update_from_omniauth(auth, user)
-    if auth["provider"] == 'peddie'
+    if 'peddie' == auth["provider"]
       user.first_name = auth["info"]["first_name"]
       user.last_name = auth["info"]["last_name"]
 
@@ -83,7 +95,11 @@ class User < ActiveRecord::Base
         user.school_role = 'student'
         user.graduation_year = $1
       end
+    elsif 'identity' == auth["provider"]
+      user.site_role = 'admin'
     end
+
+    user.site_role ||= 'user'
 
     user
   end

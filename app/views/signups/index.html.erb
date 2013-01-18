@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
   <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
-  <li class="active">My Signups</li>
+  <li class="active">My signups</li>
 </ul>
 
 <table class="table table-striped">
@@ -11,10 +11,21 @@
     </tr>
   </thead>
   <tbody>
-    <% @signups.each do |signup| %>
+    <% unless @signups.blank? %>
+      <% @signups.each do |signup| %>
+        <tr>
+          <td>
+            <%= link_to signup.shift.committee.name, signup.shift.committee %>, 
+            Shift #<%= signup.shift.position %>
+          </td>
+          <td><%= signup.created_at %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= signup.shift_id %></td>
-        <td><%=l signup.created_at %></td>
+        <td colspan="2">
+          You haven&rsquo;t signed up for anything yet.
+        </td>
       </tr>
     <% end %>
   </tbody>
