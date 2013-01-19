@@ -12,7 +12,7 @@ Students are to sign up within certain DateTime ranges, defined in [config/setti
 
 The system also has an Excel export feature.  During or after the student signup phase, everyone (you can certainly add access control if you want) is able to export all the signup information, organized by committees and shifts, by downloading `/committees.xsl`.  The appearance of this generated Excel file is very similar to that of the manually-entered Excel spreadsheet used in 2012 and before at The Peddie School.
 
-Relationship between Controllers
+Relationship between Models
 --------------------------------
 
-Each one of the `committees` has many `shifts`, which are signed up by `users`.
+Each one of the `Committee`s has many `Shift`s, which are signed up by `User`s.
