@@ -36,6 +36,13 @@
       <Column ssAutoFitWidth="0" ss:Width="150" />
       <Column ssAutoFitWidth="0" ss:Width="100" />
 
+      <Row>
+        <Cell ss:MergeAcross="7">
+          <Data ss:Type="String">Generated: <%= Time.now %></Data>
+        </Cell>
+      </Row>
+      <Row></Row>
+
       <% @committees.each do |committee| %>
         <Row ss:Height="30">
           <Cell ss:MergeAcross="7" ss:StyleID="committee_name">
