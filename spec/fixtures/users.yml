@@ -1,6 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
 junior:
+  id: 1
   provider: myself
   uid: junior
   first_name: Garret
@@ -10,6 +9,7 @@ junior:
   site_role: user
 
 senior:
+  id: 2
   provider: myself
   uid: senior
   first_name: Isreal
@@ -19,6 +19,7 @@ senior:
   site_role: user
 
 faculty:
+  id: 3
   provider: myself
   uid: faculty
   first_name: Delinda

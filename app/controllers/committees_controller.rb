@@ -9,6 +9,7 @@ class CommitteesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @committees }
+      format.xls
     end
   end
 

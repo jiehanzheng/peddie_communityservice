@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Styles>
+    <Style ss:ID="committee_name">
+      <Font ss:FontName="Calibri" ss:Size="24" ss:Bold="1" ss:Underline="Single" />
+    </Style>
+    <Style ss:ID="committee_details">
+      <Font ss:FontName="Calibri" ss:Size="18" />
+    </Style>
+    <Style ss:ID="shift_id">
+      <Font ss:FontName="Calibri" ss:Size="20" ss:Bold="1" />
+    </Style>
+    <Style ss:ID="shift_details">
+      <Font ss:FontName="Calibri" ss:Size="18" />
+    </Style>
+    <Style ss:ID="signup_header">
+      <Font ss:FontName="Calibri" ss:Size="16" ss:Bold="1" />
+    </Style>
+    <Style ss:ID="signup">
+      <Font ss:FontName="Times New Roman" ss:Size="14" />
+    </Style>
+    <Style ss:ID="signup_time">
+      <Font ss:FontName="Times New Roman" ss:Size="14" />
+      <NumberFormat ss:Format="[$-409]m/d/yyyy\ h:mm\ AM/PM;@" />
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+
+      <Column ssAutoFitWidth="0" ss:Width="150" />
+      <Column ssAutoFitWidth="0" ss:Width="150" />
+      <Column ssAutoFitWidth="0" ss:Width="150" />
+      <Column ssAutoFitWidth="0" ss:Width="100" />
+
+      <% @committees.each do |committee| %>
+        <Row ss:Height="30">
+          <Cell ss:MergeAcross="7" ss:StyleID="committee_name">
+            <Data ss:Type="String"><%= committee.name %></Data>
+          </Cell>
+        </Row>
+        <Row>
+          <Cell ss:MergeAcross="7" ss:StyleID="committee_details">
+            <Data ss:Type="String">Location: <%= committee.location %></Data>
+          </Cell>
+        </Row>
+
+        <% committee.shifts.each do |shift| %>
+          <Row>
+            <Cell ss:MergeAcross="7" ss:StyleID="shift_id">
+              <Data ss:Type="String">Shift #<%= shift.position %></Data>
+            </Cell>
+          </Row>
+
+          <Row>
+            <Cell ss:MergeAcross="7" ss:StyleID="shift_details">
+              <Data ss:Type="String">Time: <%= shift.start_time_human %> to <%= shift.end_time_human %></Data>
+            </Cell>
+          </Row>
+
+          <Row>
+            <Cell ss:StyleID="signup_header"><Data ss:Type="String">Last Name</Data></Cell>
+            <Cell ss:StyleID="signup_header"><Data ss:Type="String">First Name</Data></Cell>
+            <Cell ss:StyleID="signup_header"><Data ss:Type="String">Signup Time</Data></Cell>
+            <Cell ss:StyleID="signup_header"><Data ss:Type="String">Record ID</Data></Cell>
+          </Row>
+
+          <% shift.signups.each do |signup| %>
+            <Row>
+              <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.last_name %></Data></Cell>
+              <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.first_name %></Data></Cell>
+              <Cell ss:StyleID="signup_time"><Data ss:Type="DateTime"><%= signup.created_at.strftime("%FT%T.%L") %></Data></Cell>
+              <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.id %></Data></Cell>
+            </Row>
+          <% end %>
+
+          <Row></Row>
+        <% end %>
+
+        <Row></Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

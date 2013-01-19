@@ -11,6 +11,13 @@
   <% end %>
 
   <div class="control-group">
+    <label class="control-label">Name</label>
+    <div class="controls">
+      <span class="input-large uneditable-input"><%= current_user.full_name %></span>
+    </div>
+  </div>
+
+  <div class="control-group">
     <%= f.label :shift_id, :class => 'control-label' %>
     <div class="controls">
       <%= f.hidden_field :shift_id, :value => @shift.id %>
@@ -24,6 +31,6 @@
   <div class="form-actions">
     <%= f.submit "Confirm signup", :class => 'btn btn-primary' %>
     <%= link_to "Cancel",
-                signups_path, :class => 'btn' %>
+                @shift.committee, :class => 'btn' %>
   </div>
 <% end %>

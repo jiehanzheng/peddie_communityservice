@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  # # fake the time for testing purposes
+  # before_filter :adjust_time
+  # def adjust_time
+  #   Timecop.freeze Time.new(2013,1,22,0,0,1)
+  # end
+
   def current_user_can_cancel?
     if current_user.eligible_today?
       true

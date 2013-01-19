@@ -11,3 +11,9 @@ two:
   name: Bag Lunches
   description: Assembling lunch bags for our guests.
   location: Athletic Center Lobby
+
+three:
+  id: 3
+  name: Clothing Drive
+  description: Assist in sorting and moving clothing donations.
+  location: Athletic Center Lobby

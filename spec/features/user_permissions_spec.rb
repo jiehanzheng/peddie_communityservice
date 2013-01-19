@@ -14,6 +14,7 @@ feature "Guest users" do
   end
 end
 
+
 feature "Juniors" do
   fixtures :users, :committees, :shifts
   before(:each) { login_as 'junior' }
@@ -27,6 +28,18 @@ feature "Juniors" do
     visit root_path
     click_link 'Meals on Wheels'
     page.should have_content 'Details'
+  end
+
+  it "should be able to see his/her signups" do
+    login_as 'junior'
+    visit signups_path
+    page.should_not have_content 'Meals on Wheels'
+  end
+
+  it "should not be able to see other's signups" do
+    login_as 'junior'
+    visit signups_path
+    page.should_not have_content 'Bag Lunches'
   end
 end
 
