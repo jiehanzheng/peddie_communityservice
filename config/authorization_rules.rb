@@ -16,7 +16,6 @@ authorization do
   role :admin do
     has_permission_on :committees, :to => :manage
     has_permission_on :signups, :to => :manage
-    has_permission_on :users, :to => :manage
   end
   
 end

@@ -66,25 +66,6 @@ class SignupsController < ApplicationController
     end
   end
 
-  # PUT /signups/1
-  # PUT /signups/1.json
-  def update
-    @signup = Signup.find(params[:id])
-
-    respond_to do |format|
-      if @signup.update_attributes(params[:signup])
-        format.html { redirect_to @signup, notice: 'Signup was successfully updated.' }
-        format.json { head :no_content }
-      else
-        if not fetch_shift_info params[:signup][:shift_id]
-          return
-        end
-        format.html { render action: "edit" }
-        format.json { render json: @signup.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /signups/1
   # DELETE /signups/1.json
   def destroy
