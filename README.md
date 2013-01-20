@@ -12,7 +12,7 @@ Students are to sign up within certain DateTime ranges, defined in [config/setti
 
 Student authentication is handled through OpenID Federated Login Service for Google Apps.  Our email address naming convention is neat.  Everyone has an email address in this format: `^(?:[a-z]+)(?:-(\d{2}))?@peddie\.org$`, allowing the system to easily determine the graduation year of a particular student.
 
-The system also has an Excel export feature.  During or after the student signup phase, everyone (you can certainly add access control if you want) is able to export all the signup information, organized by committees and shifts, by downloading `/committees.xsl`.  The appearance of this generated Excel file is very similar to that of the manually-entered Excel spreadsheet used in 2012 and before at The Peddie School.
+The system also has an Excel export feature.  During or after the student signup phase, everyone (you can certainly add access control if you want) is able to export all the signup information, organized by committees and shifts, by downloading `/committees.xls`.  The appearance of this generated Excel file is very similar to that of the manually-entered Excel spreadsheet used in 2012 and before at The Peddie School.
 
 Relationship between Models
 --------------------------------
