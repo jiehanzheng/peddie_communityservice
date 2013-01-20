@@ -3,7 +3,15 @@ require 'spec_helper'
 feature "Counting mechanism" do
   fixtures :users, :committees, :shifts
 
-  it "should notify users who already has two shifts to sign up for more" do
+  before do
+    Timecop.freeze Time.new(2013,1,22,0,0,1)
+  end
+
+  after do
+    Timecop.return
+  end
+
+  it "should display N/A links to users who already has two shifts" do
     login_as 'senior'
     visit '/signups/new?shift_id=1'
     click_on 'Confirm signup'
@@ -24,6 +32,6 @@ feature "Counting mechanism" do
     
     visit '/signups/new?shift_id=3'
     click_on 'Confirm signup'
-    page.should have_content 'User is not allowed to sign up today'
+    page.should have_content 'User has already used up his/her signup quota'
   end
 end
