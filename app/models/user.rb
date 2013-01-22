@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
       user.first_name = auth["info"]["first_name"]
       user.last_name = auth["info"]["last_name"]
 
-      unless auth["info"]["email"] =~ /^(?:[a-z]+)(?:-(\d{2}))?@peddie\.org$/
+      unless auth["info"]["email"] =~ /^(?:[a-z\-]+)(?:-(\d{2}))?@peddie\.org$/
         raise "You need to login with your Peddie Email account."
       end
 
