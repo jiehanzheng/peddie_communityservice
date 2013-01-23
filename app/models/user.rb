@@ -89,6 +89,8 @@ class User < ActiveRecord::Base
         raise "You need to login with your Peddie Email account."
       end
 
+      user.email = auth["info"]["email"]
+
       if $1.blank?
         user.school_role = 'faculty'
       else

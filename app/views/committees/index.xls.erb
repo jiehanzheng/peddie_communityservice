@@ -5,6 +5,9 @@
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:html="http://www.w3.org/TR/REC-html40">
   <Styles>
+    <Style ss:ID="warning">
+      <Font ss:FontName="Calibri" ss:Size="24" ss:Color="#FF0000" />
+    </Style>
     <Style ss:ID="committee_name">
       <Font ss:FontName="Calibri" ss:Size="24" ss:Bold="1" ss:Underline="Single" />
     </Style>
@@ -33,60 +36,76 @@
 
       <Column ssAutoFitWidth="0" ss:Width="150" />
       <Column ssAutoFitWidth="0" ss:Width="150" />
-      <Column ssAutoFitWidth="0" ss:Width="150" />
-      <Column ssAutoFitWidth="0" ss:Width="100" />
+      <Column ssAutoFitWidth="0" ss:Width="140" />
+      <Column ssAutoFitWidth="0" ss:Width="70" />
+      <Column ssAutoFitWidth="0" ss:Width="60" />
+      <Column ssAutoFitWidth="0" ss:Width="220" />
 
       <Row>
-        <Cell ss:MergeAcross="7">
+        <Cell ss:MergeAcross="5">
           <Data ss:Type="String">Generated: <%= Time.now %></Data>
         </Cell>
       </Row>
       <Row></Row>
 
-      <% @committees.each do |committee| %>
-        <Row ss:Height="30">
-          <Cell ss:MergeAcross="7" ss:StyleID="committee_name">
-            <Data ss:Type="String"><%= committee.name %></Data>
-          </Cell>
-        </Row>
-        <Row>
-          <Cell ss:MergeAcross="7" ss:StyleID="committee_details">
-            <Data ss:Type="String">Location: <%= committee.location %></Data>
-          </Cell>
-        </Row>
-
-        <% committee.shifts.each do |shift| %>
+      <% if signed_in? %>
+        <% @committees.each do |committee| %>
+          <Row ss:Height="30">
+            <Cell ss:MergeAcross="5" ss:StyleID="committee_name">
+              <Data ss:Type="String"><%= committee.name %></Data>
+            </Cell>
+          </Row>
           <Row>
-            <Cell ss:MergeAcross="7" ss:StyleID="shift_id">
-              <Data ss:Type="String">Shift #<%= shift.position %></Data>
+            <Cell ss:MergeAcross="5" ss:StyleID="committee_details">
+              <Data ss:Type="String">Location: <%= committee.location %></Data>
             </Cell>
           </Row>
 
-          <Row>
-            <Cell ss:MergeAcross="7" ss:StyleID="shift_details">
-              <Data ss:Type="String">Time: <%= shift.start_time_human %> to <%= shift.end_time_human %></Data>
-            </Cell>
-          </Row>
-
-          <Row>
-            <Cell ss:StyleID="signup_header"><Data ss:Type="String">Last Name</Data></Cell>
-            <Cell ss:StyleID="signup_header"><Data ss:Type="String">First Name</Data></Cell>
-            <Cell ss:StyleID="signup_header"><Data ss:Type="String">Signup Time</Data></Cell>
-            <Cell ss:StyleID="signup_header"><Data ss:Type="String">Record ID</Data></Cell>
-          </Row>
-
-          <% shift.signups.each do |signup| %>
+          <% committee.shifts.each do |shift| %>
             <Row>
-              <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.last_name %></Data></Cell>
-              <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.first_name %></Data></Cell>
-              <Cell ss:StyleID="signup_time"><Data ss:Type="DateTime"><%= signup.created_at.strftime("%FT%T.%L") %></Data></Cell>
-              <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.id %></Data></Cell>
+              <Cell ss:MergeAcross="5" ss:StyleID="shift_id">
+                <Data ss:Type="String">Shift #<%= shift.position %></Data>
+              </Cell>
             </Row>
+
+            <Row>
+              <Cell ss:MergeAcross="5" ss:StyleID="shift_details">
+                <Data ss:Type="String">Time: <%= shift.start_time_human %> to <%= shift.end_time_human %></Data>
+              </Cell>
+            </Row>
+
+            <Row>
+              <Cell ss:StyleID="signup_header"><Data ss:Type="String">Last Name</Data></Cell>
+              <Cell ss:StyleID="signup_header"><Data ss:Type="String">First Name</Data></Cell>
+              <Cell ss:StyleID="signup_header"><Data ss:Type="String">Signup Time</Data></Cell>
+              <Cell ss:StyleID="signup_header"><Data ss:Type="String">Record ID</Data></Cell>
+              <Cell ss:StyleID="signup_header"><Data ss:Type="String">Grad. Yr.</Data></Cell>
+              <Cell ss:StyleID="signup_header"><Data ss:Type="String">Email</Data></Cell>
+            </Row>
+
+            <% shift.signups.each do |signup| %>
+              <Row>
+                <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.last_name %></Data></Cell>
+                <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.first_name %></Data></Cell>
+                <Cell ss:StyleID="signup_time"><Data ss:Type="DateTime"><%= signup.created_at.strftime("%FT%T.%L") %></Data></Cell>
+                <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.id %></Data></Cell>
+                <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.graduation_year %></Data></Cell>
+                <Cell ss:StyleID="signup"><Data ss:Type="String"><%= signup.user.email %></Data></Cell>
+              </Row>
+            <% end %>
+
+            <Row></Row>
           <% end %>
 
           <Row></Row>
         <% end %>
 
+      <% else %>
+        <Row>
+          <Cell ss:MergeAcross="5" ss:StyleID="warning">
+            <Data ss:Type="String">Permission denined.  Please sign in and download again.</Data>
+          </Cell>
+        </Row>
         <Row></Row>
       <% end %>
     </Table>
