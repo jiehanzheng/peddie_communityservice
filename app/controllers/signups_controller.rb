@@ -2,6 +2,7 @@ class SignupsController < ApplicationController
   before_action :set_signup, only: [:destroy]
   before_action :set_shift, only: [:new]
   before_action :set_committee, only: [:new]
+  before_action :check_previous_signups, only: [:new]
   before_action :require_login, only: [:new, :create, :destroy]
   before_action :require_same_user, only: [:destroy]
 
@@ -63,6 +64,13 @@ class SignupsController < ApplicationController
 
     def set_committee
       @committee = @shift.committee
+    end
+
+    def check_previous_signups
+      if @shift.signup_by_user(current_user) != nil
+        flash[:error] = "You have already signed up for this shift."
+        redirect_to @shift.committee
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -7,6 +7,7 @@ describe SignupsController do
 
       @user = create(:user, email: 'jzheng-14@peddie.org', num_signups: 0)
       @other_user = create(:user)
+      @other_can_signup_user = create(:user, email: 'jzheng-14@peddie.org', num_signups: 0)
 
       @committee = create(:committee)
       @shift = create(:shift, committee: @committee, capacity: 50, num_signups: 0)
@@ -14,7 +15,7 @@ describe SignupsController do
     }
 
     it "allows user to sign up" do
-      allow(controller).to receive(:current_user).and_return(@user)
+      allow(controller).to receive(:current_user).and_return(@other_can_signup_user)
       post :create, :signup => {:shift_id => @shift.id}
       expect(response).to redirect_to(@committee)
       expect(flash[:success]).to eq('You have signed up successfully!')

@@ -64,6 +64,12 @@
   <%= bootstrap_flash %>
   
   <%= yield %>
+
+  <div id="footer" role="footer">
+    <p class="text-muted">
+    This sign up site is an <%= link_to "open source project", 'https://github.com/jiehanzheng/peddie_communityservice', :target => '_blank' %> by Jiehan Zheng &rsquo;14.<br />
+    We are looking for a few developers and maintainers for next year.&nbsp;&nbsp;<%= link_to "Send me an email", 'mailto:jzheng-14@peddie.org', :target => '_blank' %> if you are interested!</p>
+  </div>
 </div>
 
 </body>

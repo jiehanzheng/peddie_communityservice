@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140111181730) do
+ActiveRecord::Schema.define(version: 20140112174055) do
 
   create_table "committees", force: true do |t|
     t.string   "name"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20140111181730) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "signups", ["user_id", "shift_id"], name: "index_signups_on_user_id_and_shift_id", unique: true
 
   create_table "users", force: true do |t|
     t.string   "provider"
