@@ -1,33 +1,22 @@
-<div class="alert alert-info">
-  <strong>Returning students</strong> who bring their <span class="label label-warning">orange</span> Community Day shirt with them will receive an extra hour of Community Service.
-</div>
-
-<ul class="breadcrumb">
-  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
-  <li class="active">Committees</li>
-</ul>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Committee</th>
-      <th>Location</th>
-      <th>Description</th>
-      <th>Availability</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @committees.each do |committee| %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><strong><%= link_to committee.name, committee_path(committee) %></strong></td>
-        <td><%= committee.location %></td>
-        <td><%= committee.description %></td>
-        <td><%= spots_badge committee.total_available_spots %> / <%= committee.total_capacity %></td>
+        <th>Committee</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Availability</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%#= link_to t('.new', :default => t("helpers.links.new")),
-            new_committee_path,
-            :class => 'btn btn-primary' %>
+    </thead>
+    <tbody>
+      <% @committees.each do |committee| %>
+        <%= content_tag :tr, class: [bootstrap_row_color_class_by_spots(committee.spots, committee.capacity)] do %>
+          <td><strong><%= link_to committee.name, committee_path(committee) %></strong></td>
+          <td><%= committee.location %></td>
+          <td><%= committee.description %></td>
+          <td><span class="badge"><%= committee.spots %></span> / <%= committee.capacity %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

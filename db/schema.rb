@@ -9,55 +9,47 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123193550) do
+ActiveRecord::Schema.define(version: 20140111181730) do
 
-  create_table "committees", :force => true do |t|
+  create_table "committees", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "location"
-    t.integer  "user_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "identities", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "shifts", :force => true do |t|
+  create_table "shifts", force: true do |t|
     t.integer  "committee_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "capacity"
     t.integer  "position"
+    t.integer  "capacity"
+    t.integer  "num_signups",  default: 0
     t.time     "start_time"
     t.time     "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "signups", :force => true do |t|
+  create_table "signups", force: true do |t|
     t.integer  "user_id"
     t.integer  "shift_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.string   "provider"
     t.string   "uid"
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.string   "school_role"
-    t.string   "graduation_year"
-    t.string   "site_role"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "num_signups", default: 0
   end
+
+  add_index "users", ["provider", "uid"], name: "users_omniauth_lookup", unique: true
 
 end

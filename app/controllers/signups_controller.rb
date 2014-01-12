@@ -1,97 +1,80 @@
 class SignupsController < ApplicationController
-  filter_resource_access
-  
-  # GET /signups
-  # GET /signups.json
-  def index
-    @signups = Signup.where(:user_id => current_user.id)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @signups }
-    end
-  end
-
-  # GET /signups/1
-  # GET /signups/1.json
-  def show
-    @signup = Signup.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @signup }
-    end
-  end
+  before_action :set_signup, only: [:destroy]
+  before_action :set_shift, only: [:new]
+  before_action :set_committee, only: [:new]
+  before_action :require_login, only: [:new, :create, :destroy]
+  before_action :require_same_user, only: [:destroy]
 
   # GET /signups/new
-  # GET /signups/new.json
   def new
     @signup = Signup.new
-
-    if not fetch_shift_info
-      return
-    end
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @signup }
-    end
-  end
-
-  # GET /signups/1/edit
-  def edit
-    @signup = Signup.find(params[:id])
-
-    @shift = @signup.shift
+    @signup.shift = @shift
   end
 
   # POST /signups
-  # POST /signups.json
   def create
-    @signup = Signup.new(params[:signup])
-
+    @signup = Signup.new(signup_params)
     @signup.user = current_user
 
     respond_to do |format|
-      if @signup.save
-        format.html { redirect_to @signup.shift.committee, notice: 'You are signed up!' }
-        format.json { render json: @signup, status: :created, location: @signup }
-      else
-        if not fetch_shift_info params[:signup][:shift_id]
-          return
+      begin
+        if @signup.save_and_update_counts!
+          flash[:success] = 'You have signed up successfully!'
+          format.html { redirect_to @signup.shift.committee }
+        else
+          format.html { render action: 'new' }
         end
-        format.html { render action: "new" }
-        format.json { render json: @signup.errors, status: :unprocessable_entity }
+      rescue => detail
+        print detail.backtrace.join("\n") if !Rails.env.production?
+        raise detail.to_yaml if !Rails.env.production?
+        flash[:error] = "Error while signing you up: " + detail.message + '&nbsp;'*2 + 'Please try again.'
+        redirect_to @signup.shift.committee
+        return
       end
     end
   end
 
   # DELETE /signups/1
-  # DELETE /signups/1.json
   def destroy
-    @signup = Signup.find(params[:id])
-    @signup.destroy
+    begin
+      @signup.destroy_and_update_counts!
+    rescue => detail
+      print detail.backtrace.join("\n") if !Rails.env.production?
+      raise detail.to_yaml if !Rails.env.production?
+      flash[:error] = "Error during canceling: " + detail.message
+      redirect_to @signup.shift.committee
+      return
+    end
 
     respond_to do |format|
-      # format.html { redirect_to signups_url }
       format.html { redirect_to @signup.shift.committee, notice: 'We&rsquo;ve removed you from the list.'.html_safe }
-      format.json { head :no_content }
     end
   end
-
 
   private
-
-  def fetch_shift_info(shift_id=nil)
-    shift_id ||= params[:shift_id]
-
-    # if no shift is selected, redirect user back to shifts#index
-    if shift_id.blank?
-      redirect_to committees_path, :alert => "You have to select a shift from a committee first."
-      return false
+    # Use callbacks to share common setup or constraints between actions.
+    def set_signup
+      @signup = Signup.find(params[:id])
     end
 
-    # get shift information
-    @shift = Shift.find(shift_id)
-  end
+    def set_shift
+      @shift = Shift.find(params[:shift_id])
+    end
+
+    def set_committee
+      @committee = @shift.committee
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def signup_params
+      params.require(:signup).permit(:shift_id)
+    end
+
+    def require_same_user
+      if @signup.user != current_user
+        flash[:error] = "You cannot cancel shifts for others!"
+        redirect_to @signup.shift.committee
+      end
+    end
+
 end

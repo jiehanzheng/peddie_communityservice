@@ -1,16 +1,19 @@
-<ul class="breadcrumb">
-  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
-  <li><%= link_to "Committees", committees_path %> <span class="divider">/</span></li>
-  <li class="active"><%= @committee.name %></li>
-</ul>
+<% breadcrumb :committee, @committee %>
 
-<div class="page-header">
-  <h1><%= @committee.name %> <small>@ <%= @committee.location %></small></h1>
-</div>
+<%= render 'header' %>
 
 <div class="row">
-  <div class="span8">
-    <h2>Shifts</h2>
+
+  <div class="col-sm-4 col-sm-push-8">
+    <div class="panel panel-info">
+      <div class="panel-heading">Description</div>
+      <div class="panel-body">
+        <%= simple_format( @committee.description ) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-8 col-sm-pull-4">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -22,47 +25,16 @@
         </tr>
       </thead>
       <tbody>
-        <% @shifts.each do |shift| %>
+        <% @committee.shifts.each do |shift| %>
           <tr>
             <td><strong><%= shift.position %></strong></td>
-            <td><%= shift.start_time_human %></td>
-            <td><%= shift.end_time_human %></td>
+            <td><%= shift.friendly_start_time %></td>
+            <td><%= shift.friendly_end_time %></td>
             <td>
-              <%= spots_badge shift.capacity - shift.signups.count %>
-              /
-              <%= shift.capacity %>
+              <span class="badge"><%= shift.spots %></span> / <%= shift.capacity %>
             </td>
             <td>
-              <% signup_entry = current_user.signed_up?(shift) %>
-              <% if signup_entry.blank? %>
-                <% if shift.has_spots? %>
-                  <% if current_user.can_signup? %>
-                    <%= link_to "Sign up", { :controller => "signups",
-                                             :action => "new",
-                                             :shift_id => shift.id },
-                                           { :class => "signup btn btn-mini btn-primary" } %>
-                  <% else %>
-                    <%= link_to "N/A", "javascript:void(0)",
-                                           { :class => "signup disabled btn btn-mini btn-primary" } %>
-                  <% end %>
-                <% else %>
-                  <%= link_to "Full", "javascript:void(0)",
-                                      { :class => "signup disabled btn btn-mini btn-primary" } %>
-                <% end %>
-              <% else %>
-                <% if current_user.can_cancel? %>
-                  <%= link_to "Cancel", signup_entry, 
-                                        { :confirm => "Are you sure?
-
-If you change your mind after you cancel, 
-you spot might be taken by others.", 
-                                          :method => :delete, 
-                                          :class => "cancel btn btn-mini btn-danger" } %>
-                <% else %>
-                  <%= link_to "N/A", "javascript:void(0)", 
-                                     { :class => "cancel disabled btn btn-mini btn-danger" } %>
-                <% end %>
-              <% end %>
+              <%= sign_up_button(shift, current_user) %>
             </td>
           </tr>
           <tr>
@@ -73,7 +45,7 @@ you spot might be taken by others.",
                   <li>
                     <%= signup.user.full_name %>
                     <% if signup.user == current_user %>
-                      <span class="label">you</span>
+                      <span class="label label-info">me</span>
                     <% end %>
                   </li>
                 <% end %>
@@ -85,9 +57,4 @@ you spot might be taken by others.",
     </table>
   </div>
 
-  <div class="span4">
-    <h2>Details</h2>
-    <h3>Description</h3>
-    <%= simple_format( @committee.description ) %>
-  </div>
 </div>

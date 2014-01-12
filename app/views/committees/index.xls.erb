@@ -48,7 +48,7 @@
       </Row>
       <Row></Row>
 
-      <% if signed_in? %>
+      <% if current_user != nil %>
         <% @committees.each do |committee| %>
           <Row ss:Height="30">
             <Cell ss:MergeAcross="5" ss:StyleID="committee_name">
@@ -70,7 +70,7 @@
 
             <Row>
               <Cell ss:MergeAcross="5" ss:StyleID="shift_details">
-                <Data ss:Type="String">Time: <%= shift.start_time_human %> to <%= shift.end_time_human %></Data>
+                <Data ss:Type="String">Time: <%= shift.friendly_start_time %> to <%= shift.friendly_end_time %></Data>
               </Cell>
             </Row>
 

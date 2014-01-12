@@ -1,43 +1,23 @@
 policy:
   students:
     max_shifts: 2
-appearance:
-  badges:
-    spots_count_thresholds:
-      inverse: 0
-      important: 1
-      warning: 4
-      info: 8
-      success: 10
-    quota_remaining_thresholds:
-      info: 1
-      success: 2
 phases:
   pre:
-    notice: System ready.
-    start_date: 1994-12-12 00:00:00 -5
-    end_date: 2013-01-21 00:00:00 -5
-    who_can_signup: No one
-    after_phase: seniors/PGs will be able to sign up
-    graduation_years: []
+    start_date: ~
+    end_date: 2014-01-15 00:00:00 -5
+    notice: "System is ready.  Signups will be open on Wednesday, January 15 to seniors and those who were affected by a bug last year; it will be open to everyone on Thursday."
   seniors:
-    notice: Seniors/PGs only today!
-    start_date: 2013-01-21 00:00:00 -5
-    end_date: 2013-01-22 00:00:00 -5
-    who_can_signup: Only seniors
-    after_phase: everyone can sign up
-    graduation_years: [13]
+    start_date: 2014-01-15 00:00:00 -5
+    end_date: 2014-01-16 00:00:00 -5
+    notice: "Only seniors and those who were affected by a bug last year can sign up today.  Everyone else has to wait until midnight."
+    graduation_years: [14]
+    additional_allowed_emails: ['ajones-twaddell-16@peddie.org', 'trojas-scott-16@peddie.org']  # this is to address a bug I produced last year...allow them to sign up with seniors
   everyone:
-    notice: Sign up now!
-    start_date: 2013-01-22 00:00:00 -5
-    end_date: 2013-01-24 00:00:00 -5
-    who_can_signup: Everyone
-    after_phase: no one will be allowed to make any changes
-    graduation_years: [13,14,15,16]
-  freeze:
-    notice: Sign up ended.
-    start_date: 2013-01-24 00:00:00 -5
-    end_date: 2013-12-31 23:59:59 -5
-    who_can_signup: No one
-    after_phase: it is 2014
-    graduation_years: []
+    start_date: 2014-01-16 00:00:00 -5
+    end_date: 2014-01-20 00:00:00 -5
+    notice: "Everyone can sign up today.  Signups will end on Sunday."
+    graduation_years: [14, 15, 16, 17]
+  post:
+    start_date: 2014-01-20 00:00:00 -5
+    end_date: ~
+    notice: "Too late!  You can't make changes now.  For cancellations, contact Ms. Mooney or committee chairs."

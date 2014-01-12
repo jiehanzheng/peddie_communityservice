@@ -1,37 +1,22 @@
 class SessionsController < ApplicationController
+  protect_from_forgery :except => :create
+
   def create
-    begin
-      auth = request.env["omniauth.auth"]
-      user = User.from_omniauth(auth)
-      session[:user_id] = user.id
-      redirect_to (request.env['omniauth.origin'] || root_path), :notice => "Welcome!  You've successfully signed in via your #{auth["provider"].titleize} account."
-    rescue => e
-      raise e if not Rails.env.production?
-      redirect_to root_path, :alert => e.message
-    end
+    @user = User.from_auth_hash(auth_hash)
+    self.current_user = @user
+    redirect_to (request.env['omniauth.origin'] || root_path), :notice => "You have signed in as " + @user.first_name + "."
   end
 
-  def destroy(notice=nil)
-    sessions_destroy(notice)
+  # POST /session/destroy
+  def destroy
+    self.current_user = nil
+    redirect_to root_path, :notice => "Signed out successfully."
   end
 
 
-  # cheat signin mechanism to enable Capybara to sign in without having to access
-  # Google services
-  #
-  def secret_signin_page
-    if Rails.env.production?
-      raise "Do not try to do this in production environment"
-    end
-  end
+  protected
 
-  def secret_signin
-    if Rails.env.production?
-      raise "Do not try to do this in production environment"
-    end
-
-    user = User.find_by_uid(request[:uid])
-    session[:user_id] = user.id
-    redirect_to root_path, :notice => "Welcome!  You've successfully signed in via your cheating account."
+  def auth_hash
+    request.env['omniauth.auth']
   end
 end

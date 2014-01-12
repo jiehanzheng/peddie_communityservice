@@ -1,32 +1,29 @@
-<ul class="breadcrumb">
-  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
-  <li class="active">My signups</li>
-</ul>
+<h1>Listing signups</h1>
 
-<table class="table table-striped">
+<table>
   <thead>
     <tr>
-      <th>Committee, Shift #</th>
-      <th>Signed up at</th>
+      <th>User</th>
+      <th>Shift</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
+
   <tbody>
-    <% unless @signups.blank? %>
-      <% @signups.each do |signup| %>
-        <tr>
-          <td>
-            <%= link_to signup.shift.committee.name, signup.shift.committee %>, 
-            Shift #<%= signup.shift.position %>
-          </td>
-          <td><%= signup.created_at %></td>
-        </tr>
-      <% end %>
-    <% else %>
+    <% @signups.each do |signup| %>
       <tr>
-        <td colspan="2">
-          You haven&rsquo;t signed up for anything yet.
-        </td>
+        <td><%= signup.user_id %></td>
+        <td><%= signup.shift_id %></td>
+        <td><%= link_to 'Show', signup %></td>
+        <td><%= link_to 'Edit', edit_signup_path(signup) %></td>
+        <td><%= link_to 'Destroy', signup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<br>
+
+<%= link_to 'New Signup', new_signup_path %>

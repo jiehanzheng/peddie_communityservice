@@ -1,15 +1,15 @@
 class Committee < ActiveRecord::Base
-  attr_accessible :description, :location, :name
-
   has_many :shifts
 
-  validates :name, :location, :presence => true
-
-  def total_capacity
-    shifts.sum(&:capacity)
+  def num_signups
+    shifts.to_a.sum(&:num_signups)
   end
 
-  def total_available_spots
-    total_capacity - shifts.inject(0) { |sum, s| sum + s.signups.count }
+  def capacity
+    shifts.to_a.sum(&:capacity)
+  end
+
+  def spots
+    shifts.to_a.sum(&:spots)
   end
 end

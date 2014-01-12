@@ -1,12 +1,44 @@
-<ul class="breadcrumb">
-  <li><%= link_to "Home", root_path %> <span class="divider">/</span></li>
-  <li><%= link_to "Committees", committees_path %> <span class="divider">/</span></li>
-  <li><%= link_to @shift.committee.name, @shift.committee %> <span class="divider">/</span></li>
-  <li>Shift #<%= @shift.position %> <span class="divider">/</span></li>
-  <li class="active">Sign up</li>
-</ul>
+<% breadcrumb :signup, @signup %>
 
-<div class="page-header">
-  <h1>Signup confirmation</h1>
-</div>
-<%= render :partial => 'form' %>
+<%= render 'committees/header' %>
+
+<h2>Signup sheet</h2>
+
+<%= form_for @signup, :html => { :class => 'form-horizontal', :role => 'form' } do |f| %>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <%= tag :input, :class => 'form-control', :type => 'text', :placeholder => current_user.full_name, :disabled => true %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :shift_id, :class => 'control-label col-sm-2' %>
+    <div class="col-sm-10">
+      <%= f.hidden_field :shift_id, :value => @shift.id %>
+      <div class="well">
+        <h4><%= @shift.committee.name %> #<%= @shift.position %></h4>
+        <%= @shift.friendly_start_time %>&ndash;<%= @shift.friendly_end_time %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Agreement</label>
+    <div class="col-sm-10">
+      <p class="text-warning">Your spot is not secured until you click &ldquo;Confirm signup&rdquo;.</p>
+      <p>By clicking &ldquo;Confirm signup&rdquo;, I understand that:</p>
+      <ul>
+        <li>I am obligated to follow all instructions on the committee page, and in all follow-up emails from the committee chair and/or Mrs. Mooney.</li>
+        <li>I will attend all training sessions (if any), and show up on Community Day on time.</li>
+        <li>If I cancel a signup, my spot may be immediately taken by others.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "Confirm signup", :class => 'btn btn-primary' %>
+    <%= link_to "Cancel",
+                @shift.committee, :class => 'btn btn-link' %>
+  </div>
+<% end %>

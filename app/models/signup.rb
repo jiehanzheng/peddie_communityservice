@@ -1,37 +1,39 @@
 class Signup < ActiveRecord::Base
-  attr_accessible :shift_id
-
   belongs_to :shift
   belongs_to :user
 
-  validates :user_id, :presence => true
-  validates_associated :user
-  validates :shift_id, :uniqueness => { :scope => :user_id,
-                                        :message => "should not belong to the same user twice" }
-  validate :signup_checks
-  before_destroy :cancel_checks
+  validates_associated :shift, :user
 
+  def save_and_update_counts!
+    transaction do
+      shift.lock!
+      if !shift.has_spots?
+        raise "This shift is full."
+      end
 
-  private
+      user.lock!
+      if !Policy.allow_signup?(user)
+        raise "You may not sign up today, or have reached maximum number of shifts."
+      end
 
-  def signup_checks
-    unless shift.has_spots?
-      errors.add(:shift, "has no spots for you now")
-    end
-
-    unless user.eligible_today?
-      errors.add(:user, "is not allowed to sign up today")
-    end
-
-    unless user.signup_quota_remaining > 0
-      errors.add(:user, "has already used up his/her signup quota")
+      save!
+      user.increment!(:num_signups)
+      shift.increment!(:num_signups)
     end
   end
 
-  def cancel_checks
-    unless user.eligible_today?
-      errors.add(:user, "is not allowed to sign up today")
-      return false
+  def destroy_and_update_counts!
+    transaction do
+      shift.lock!
+
+      user.lock!
+      if !Policy.allow_cancel?(user)
+        raise "You may not cancel today."
+      end
+
+      destroy!
+      user.decrement!(:num_signups)
+      shift.decrement!(:num_signups)
     end
   end
 end

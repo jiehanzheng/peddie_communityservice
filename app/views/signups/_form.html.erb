@@ -1,7 +1,8 @@
-<%= form_for @signup, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for(@signup) do |f| %>
   <% if @signup.errors.any? %>
-    <div id="error_explanation" class="alert alert-block alert-error">
-      <strong><%= pluralize(@signup.errors.count, "error") %> prohibited this signup from being saved:</strong>
+    <div id="error_explanation">
+      <h2><%= pluralize(@signup.errors.count, "error") %> prohibited this signup from being saved:</h2>
+
       <ul>
       <% @signup.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,27 +11,15 @@
     </div>
   <% end %>
 
-  <div class="control-group">
-    <label class="control-label">Name</label>
-    <div class="controls">
-      <span class="input-large uneditable-input"><%= current_user.full_name %></span>
-    </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
   </div>
-
-  <div class="control-group">
-    <%= f.label :shift_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.hidden_field :shift_id, :value => @shift.id %>
-      <div class="well">
-        <h2><%= @shift.committee.name %></h2>
-        <%= @shift.start_time_human %> – <%= @shift.end_time_human %>
-      </div>
-    </div>
+  <div class="field">
+    <%= f.label :shift_id %><br>
+    <%= f.number_field :shift_id %>
   </div>
-
-  <div class="form-actions">
-    <%= f.submit "Confirm signup", :class => 'btn btn-primary' %>
-    <%= link_to "Cancel",
-                @shift.committee, :class => 'btn' %>
+  <div class="actions">
+    <%= f.submit %>
   </div>
 <% end %>
