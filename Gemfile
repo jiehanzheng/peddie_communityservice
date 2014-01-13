@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', :group => :development
-#gem 'mysql', :group => :production
+gem 'sqlite3'
+gem 'mysql', :group => :production
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -64,7 +64,9 @@ gem "rails_config"
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'capistrano', '~> 3.0.1', group: :development
+gem 'capistrano-rails', '~> 1.1', group: :development
+gem 'rvm1-capistrano3', require: false, group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

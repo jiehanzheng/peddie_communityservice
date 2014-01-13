@@ -35,7 +35,7 @@ c = Committee.create({
     :position => 1,
     :committee_id => c.id,
     :capacity => 12,
-    :num_signups => 11,  :num_signups => 8,  # TODO: remove
+    :num_signups => 11,  # TODO: remove
     :start_time => "10:00",
     :end_time => "15:00" })
 
