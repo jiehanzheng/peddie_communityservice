@@ -6,5 +6,6 @@ FactoryGirl.define do
     first_name "John"
     last_name "Doe"
     email "jdoe-15@peddie.org"
+    num_signups 1
   end
 end

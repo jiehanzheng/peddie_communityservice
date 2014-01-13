@@ -13,11 +13,11 @@ module ApplicationHelper
       html << Phase.current[:notice].gsub(/ {2,}/) {'&nbsp;'*$&.length} + '&nbsp;'*2
       html << "According to our records, you are "
       if Policy.allow_signup?(user)
-        html << "allowed"
+        html << "allowed to sign up for " + Policy.signup_quota_remaining(user).to_s + ' more ' + 'shift'.pluralize(Policy.signup_quota_remaining(user))
       else
-        html << "not allowed"
+        html << "not allowed to sign up for more shifts"
       end
-      html << " to sign up today." + '&nbsp;'*2
+      html << " today." + '&nbsp;'*2
 
       # signed up info
       if user.num_signups > 0
@@ -30,7 +30,6 @@ module ApplicationHelper
       else
         html << "You haven&rsquo;t signed up for any shifts yet." + '&nbsp;'*2
       end
-      html << "You may sign up for " + Policy.signup_quota_remaining(user).to_s + ' more ' + 'shift'.pluralize(Policy.signup_quota_remaining(user)) + '.'
     else
       html << "You are a faculty member, so you cannot sign up for events, but you are welcome to view anything!"
     end

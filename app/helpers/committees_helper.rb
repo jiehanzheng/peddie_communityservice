@@ -2,7 +2,7 @@ module CommitteesHelper
 
   def bootstrap_row_color_class_by_spots(remaining_spots, capacity)
     case remaining_spots.to_f / capacity
-    when 0 then "active"  # lol this name is confusing, but it's gray, which is what I want
+    when 0 then ""  # lol this name is confusing, but it's gray, which is what I want
     when 0..0.2 then "danger"
     when 0.2..0.5 then "warning"
     else "success"

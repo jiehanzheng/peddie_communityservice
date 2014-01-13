@@ -2,8 +2,8 @@ class SignupsController < ApplicationController
   before_action :set_signup, only: [:destroy]
   before_action :set_shift, only: [:new]
   before_action :set_committee, only: [:new]
-  before_action :check_previous_signups, only: [:new]
   before_action :require_login, only: [:new, :create, :destroy]
+  before_action :check_previous_signups, only: [:new]
   before_action :require_same_user, only: [:destroy]
 
   # GET /signups/new
@@ -16,6 +16,7 @@ class SignupsController < ApplicationController
   def create
     @signup = Signup.new(signup_params)
     @signup.user = current_user
+    check_previous_signups
 
     respond_to do |format|
       begin
@@ -67,8 +68,15 @@ class SignupsController < ApplicationController
     end
 
     def check_previous_signups
+      @shift ||= @signup.shift
+
       if @shift.signup_by_user(current_user) != nil
         flash[:error] = "You have already signed up for this shift."
+        redirect_to @shift.committee
+      end
+
+      if Policy.signup_quota_remaining(current_user) == 0
+        flash[:error] = "You cannot sign up for more shifts."
         redirect_to @shift.committee
       end
     end

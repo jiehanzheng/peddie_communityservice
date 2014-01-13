@@ -20,4 +20,4 @@ phases:
   post:
     start_date: 2014-01-20 00:00:00 -5
     end_date: ~
-    notice: "Too late!  You can't make changes now.  For cancellations, contact Ms. Mooney or committee chairs."
+    notice: "You can't make changes now.  For cancellations, contact Mrs. Mooney or the committee chairs."

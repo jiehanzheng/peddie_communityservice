@@ -3,7 +3,7 @@ PeddieCommunityservice::Application.configure do
 
   config.after_initialize do
     t = Time.local(2014, 1, 15, 10, 0, 0)
-    # Timecop.freeze(t)
+    Timecop.freeze(t)
   end
 
   # In the development environment your application's code is reloaded on
