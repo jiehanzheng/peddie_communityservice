@@ -26,7 +26,7 @@ namespace :deploy do
   desc 'Stop application'
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute '/usr/lib/passenger/bin/passenger', 'stop'
+      execute '/usr/lib/passenger/bin/passenger', 'stop', '-p', '12131', release_path
     end
   end
 
