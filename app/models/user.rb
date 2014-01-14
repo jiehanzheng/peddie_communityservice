@@ -2,13 +2,15 @@ class User < ActiveRecord::Base
   has_many :signups
 
   def self.from_auth_hash(auth_hash)
+    auth_hash = auth_hash.with_indifferent_access
+
     user = where(auth_hash.slice("provider", "uid")).first || create_from_auth_hash(auth_hash)
 
     begin
       update_user_with_auth_hash(auth_hash, user)
       user.save!
-    rescue
-      raise "We are unable to save your information to user table."
+    rescue => detail
+      raise "We are unable to save your information to user table: " + detail.message
     end
 
     user
