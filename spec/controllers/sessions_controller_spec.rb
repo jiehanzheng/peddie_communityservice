@@ -22,9 +22,4 @@ describe SessionsController do
     expect(user1_id).to_not eq(user2_id)
   end
 
-  it "current_user is in fact based on user_id stored in session" do
-    session[:user_id] = 100
-    expect(controller.current_user).to be nil
-  end
-
 end
