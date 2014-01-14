@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then 
+  echo usage: $0 directory
+  exit
+fi
+
+BACKUP_FILEPATH="$1"/"$(date +%Y%m%d\ %H%M%S)".sql
+ssh us1 mysqldump -ujiehan_scripts jiehan_csday > "$BACKUP_FILEPATH"
+ls -lh "$BACKUP_FILEPATH"
