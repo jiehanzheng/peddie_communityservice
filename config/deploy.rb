@@ -16,6 +16,20 @@ set :keep_releases, 5
 
 namespace :deploy do
 
+  desc 'Start application'
+  task :start do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute '/usr/lib/passenger/bin/passenger', 'start', '-a', '127.0.0.1', '-p', '12131', '-e', 'production', '-d', release_path
+    end
+  end
+
+  desc 'Stop application'
+  task :stop do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute '/usr/lib/passenger/bin/passenger', 'stop'
+    end
+  end
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do

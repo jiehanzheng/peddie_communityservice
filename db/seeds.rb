@@ -7,7 +7,6 @@ c = Committee.create({
     :position => 1,
     :committee_id => c.id,
     :capacity => 10,
-    :num_signups => 5,  # TODO: remove
     :start_time => "9:00",
     :end_time => "13:00" })
 
@@ -21,7 +20,6 @@ c = Committee.create({
     :position => 1,
     :committee_id => c.id,
     :capacity => 10,
-    :num_signups => 8,  # TODO: remove
     :start_time => "9:30",
     :end_time => "12:00" })
 
@@ -35,7 +33,6 @@ c = Committee.create({
     :position => 1,
     :committee_id => c.id,
     :capacity => 12,
-    :num_signups => 11,  # TODO: remove
     :start_time => "10:00",
     :end_time => "15:00" })
 
@@ -49,7 +46,6 @@ c = Committee.create({
     :position => 1,
     :committee_id => c.id,
     :capacity => 15,
-    :num_signups => 15,  # TODO: remove
     :start_time => "11:00",
     :end_time => "16:00" })
 

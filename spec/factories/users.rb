@@ -7,5 +7,10 @@ FactoryGirl.define do
     last_name "Doe"
     email "jdoe-15@peddie.org"
     num_signups 1
+
+    trait :faculty do
+      email "faculty@peddie.org"
+      num_signups 0
+    end
   end
 end
