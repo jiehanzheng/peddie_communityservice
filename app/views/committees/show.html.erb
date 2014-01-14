@@ -8,9 +8,17 @@
     <div class="panel panel-info">
       <div class="panel-heading">Description</div>
       <div class="panel-body">
-        <%= simple_format( @committee.description ) %>
+        <%= simple_format @committee.description %>
       </div>
     </div>
+    <% unless @committee.chairs.blank? %>
+      <div class="panel panel-info">
+        <div class="panel-heading">Chairs</div>
+        <div class="panel-body">
+          <%= simple_format @committee.chairs %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div class="col-sm-8 col-sm-pull-4">

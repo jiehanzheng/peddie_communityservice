@@ -1,5 +1,6 @@
 c = Committee.create({
   :name => "Meals on Wheels",
+  :chairs => "Ben Wagner",
   :description => "Preparing meals to be delivered to seniors who are homebound.",
   :location => "Dining Hall Kitchen" })
 
@@ -13,6 +14,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Bag Lunches",
+  :chairs => "Sean Tierney",
   :description => "Assembling lunch bags for our guests.",
   :location => "Athletic Center Lobby" })
 
@@ -26,6 +28,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Clothing Drive",
+  :chairs => "Patrick Mariboe",
   :description => "Assist in sorting and moving clothing donations.",
   :location => "Athletic Center Lobby" })
 
@@ -39,6 +42,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Book Drive",
+  :chairs => "Amanda Amodol",
   :description => "Moving and sorting books donated for our guests.",
   :location => "Athletic Center Lobby" })
 
@@ -52,6 +56,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Food Drive",
+  :chairs => "Carson Vey, Brandon Valentin",
   :description => "Help transport donations to and help at local food bank.",
   :location => "Dining Hall Landing" })
 
@@ -65,6 +70,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Thrift Store",
+  :chairs => "Qadira Al-Mahi, Jenna Hart",
   :description => "Help transport donations to Greater Goods and help at store.",
   :location => "Athletic Center Lobby" })
 
@@ -85,6 +91,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Carnival Set-Up",
+  :chairs => "Devin Norton, Melanie Werthan, AnneMarie Betz, Joe Werthan",
   :description => "Help set up games and supplies in the Field House.",
   :location => "Athletic Center Gym" })
 
@@ -98,6 +105,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Carnival",
+  :chairs => "Devin Norton, Melanie Werthan, AnneMarie Betz, Joe Werthan",
   :description => "Students will be assigned games or inflatables to run at Carnival for guests.",
   :location => "Athletic Center Gym" })
 
@@ -118,6 +126,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Arts and Crafts",
+  :chairs => "Kelly Coyle",
   :description => "Students will be assigned to various tables to help guests with crafts.",
   :location => "Athletic Center Gym" })
 
@@ -157,7 +166,8 @@ c = Committee.create({
 
 
 c = Committee.create({
-  :name => "Sports Equipment",
+  :name => "Sports Equipment Drive",
+  :chairs => "Jude Lindberg, Dan Riscoe",
   :description => "Students will help collect and sort donated equipment.",
   :location => "Dining Hall Landing" })
 
@@ -171,6 +181,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Greeters",
+  :chairs => "Heather Keyser, Meg Dalrymple",
   :description => "Students will greet and guide guests to Carnival.",
   :location => "Athletic Center -- Pool Entrance" })
 
@@ -211,6 +222,7 @@ c = Committee.create({
 
 c = Committee.create({
   :name => "Refreshments",
+  :chairs => "Abby Burlington",
   :description => "Students will help prepare and serve refreshments to guests.",
   :location => "Athletic Center Gym" })
 
@@ -243,29 +255,23 @@ c = Committee.create({
 
 
 c = Committee.create({
-  :name => "Blood Drive",
-  :description => "Students will assist with signing in donors.  Blood Drive volunteers will need to go to a training during DMX on Thursday, Jan 24.",
-  :location => "Science Center Lobby" })
+  :name => "Face Painting",
+  :chairs => "Alyssa Alexander",
+  :description => "Doing face painting for our guests at the Carnival.",
+  :location => "Athletic Center Gym" })
 
   Shift.create({
     :position => 1,
     :committee_id => c.id,
-    :capacity => 6,
-    :start_time => "8:00",
-    :end_time => "11:00" })
+    :capacity => 12,
+    :start_time => "12:00",
+    :end_time => "14:00" })
 
   Shift.create({
     :position => 2,
     :committee_id => c.id,
-    :capacity => 6,
-    :start_time => "11:00",
-    :end_time => "13:00" })
-
-  Shift.create({
-    :position => 3,
-    :committee_id => c.id,
-    :capacity => 6,
-    :start_time => "13:00",
+    :capacity => 12,
+    :start_time => "14:00",
     :end_time => "16:00" })
 
 
@@ -326,26 +332,6 @@ c = Committee.create({
     :committee_id => c.id,
     :capacity => 2,
     :start_time => "12:00",
-    :end_time => "16:00" })
-
-
-c = Committee.create({
-  :name => "Origami Table",
-  :description => "Students will teach guests how to do origami. There will be a training session before Community Day.",
-  :location => "Athletic Center" })
-
-  Shift.create({
-    :position => 1,
-    :committee_id => c.id,
-    :capacity => 4,
-    :start_time => "12:00",
-    :end_time => "14:00" })
-
-  Shift.create({
-    :position => 2,
-    :committee_id => c.id,
-    :capacity => 4,
-    :start_time => "14:00",
     :end_time => "16:00" })
 
 
