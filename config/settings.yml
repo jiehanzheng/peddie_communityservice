@@ -5,11 +5,11 @@ phases:
   pre:
     start_date: ~
     end_date: 2014-01-15 00:00:00 -5
-    notice: "System is ready.  Signups will be open on Wednesday, January 15 to seniors and those who were affected by a bug last year; it will be open to everyone on Thursday."
+    notice: "System is ready.  Signups will be open on Wednesday, January 15 to seniors, PGs, and those who were affected by a bug last year; it will be open to everyone on Thursday."
   seniors:
     start_date: 2014-01-15 00:00:00 -5
     end_date: 2014-01-16 00:00:00 -5
-    notice: "Only seniors and those who were affected by a bug last year can sign up today.  Everyone else has to wait until midnight."
+    notice: "Only seniors, PGs, and those who were affected by a bug last year can sign up today.  Everyone else has to wait until midnight."
     graduation_years: [14]
     additional_allowed_emails: ['ajones-twaddell-16@peddie.org', 'trojas-scott-16@peddie.org']  # this is to address a bug I produced last year...allow them to sign up with seniors
   everyone:
