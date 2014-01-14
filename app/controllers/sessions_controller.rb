@@ -2,7 +2,13 @@ class SessionsController < ApplicationController
   protect_from_forgery :except => :create
 
   def create
-    @user = User.from_auth_hash(auth_hash)
+    begin
+      @user = User.from_auth_hash(auth_hash)
+    rescue => detail
+      flash[:error] = "Authentication error: " + detail.message + '&nbsp;'*2 + 'If this happens repeatedly, please try clearing your cookies.'
+      redirect_to root_path
+      return
+    end
     self.current_user = @user
     redirect_to (request.env['omniauth.origin'] || root_path), :notice => "You have signed in as " + @user.first_name + "."
   end

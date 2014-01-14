@@ -3,7 +3,7 @@ PeddieCommunityservice::Application.configure do
 
   config.after_initialize do
     t = Time.local(2014, 1, 15, 10, 0, 0)
-    Timecop.freeze(t)  # NOTE: this will cause OpenID to fail--sign in with this *commented out*!
+    # Timecop.freeze(t)  # NOTE: this will cause OpenID to fail--sign in with this *commented out*!
   end
 
   # In the development environment your application's code is reloaded on
