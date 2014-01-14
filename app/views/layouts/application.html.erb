@@ -27,12 +27,13 @@
   </div>
 
   <div class="collapse navbar-collapse" id="app_nav">
-    <% if Rails.env.development? %>
-      <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav">
+      <% if Rails.env.development? %>
         <li><p class="navbar-text">Development</p></li>
         <li><p class="navbar-text"><%= Time.now %></p></li>
-      </ul>
-    <% end %>
+      <% end %>
+      <li><p class="navbar-text">Community Service Day 2014: Sunday, January 26</p></li>
+    </ul>
     <div class="navbar-right">
       <ul class="nav navbar-nav">
         <li>
