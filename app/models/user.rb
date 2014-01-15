@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def self.is_peddie_email(email_address)
-    if email_address =~ /^(?:[a-z\-]+)(?:-(\d{2}))?@peddie\.org$/
+    if email_address =~ /\A(?:[a-z\-]+)(?:-(\d{2}))?@peddie\.org\z/
       true
     else
       false
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def graduation_year
-    if email =~ /^(?:[a-z\-]+)(?:-(\d{2}))?@peddie\.org$/
+    if email =~ /\A(?:[a-z\-]+)(?:-(\d{2}))?@peddie\.org\z/
       $1.to_i
     else
       nil
