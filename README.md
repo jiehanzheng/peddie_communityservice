@@ -1,10 +1,9 @@
 peddie_communityservice
 =======================
 
-Community service day activity signup system for The Peddie School in Hightstown, NJ.
+Community Service Day activity signup system for The Peddie School in Hightstown, NJ.
 
 ![Homepage](https://static.jiehan.org/pub/peddie_communityservice/screenshots/csday_signup_home.png)
-
 ![Signup page](https://static.jiehan.org/pub/peddie_communityservice/screenshots/csday_signup_committee_show.png)
 
 Installation
