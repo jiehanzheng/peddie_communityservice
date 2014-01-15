@@ -60,6 +60,9 @@ gem "omniauth-openid"
 # Load phases from a config YAML
 gem "rails_config"
 
+# Store sessions in database
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
